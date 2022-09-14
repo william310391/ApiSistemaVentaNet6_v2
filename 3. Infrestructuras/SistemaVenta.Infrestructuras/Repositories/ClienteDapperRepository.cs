@@ -40,5 +40,7 @@ namespace SistemaVenta.Infrestructuras.Repositories
             lista = (List<Product>)await _dapper.mySqlConection.QueryAsync<Product>(sql, null, null, null, CommandType.Text);
             return lista;
         }
+        //https://riptutorial.com/dapper-contrib/learn/100004/insert-data
+        //Dapper.Contrib
     }
 }

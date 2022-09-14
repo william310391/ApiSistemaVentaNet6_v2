@@ -41,7 +41,7 @@ namespace SistemaVenta.Negocio.Extensions
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork,UnitOfWork>();
             services.AddTransient<IUnitOfWorkService, UnitOfWorkService>();
             services.AddSingleton<IUrlService>(provider =>
             {

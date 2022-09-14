@@ -8,12 +8,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SistemaVenta.Infrestructuras.Interfaces;
 
 namespace SistemaVenta.Infraestructura.Repositories
 {
     public class ProductoRepository : BaseRepository<Producto>, IProductoRepository
-    {     
-        public ProductoRepository(VentasContext context):base(context) { }
+    {
+        private readonly IDapperRespository _dapper;
+
+        public ProductoRepository(VentasContext context, IDapperRespository dapper) : base(context, dapper)
+        {
+            _dapper = dapper;
+        }
 
         public async Task<IEnumerable<Producto>> GetProductoByUsuario(int userID)
         {

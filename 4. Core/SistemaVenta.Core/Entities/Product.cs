@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SistemaVenta.Core.Entities
 {
+    [Table("Product")]
     public class Product
     {
         public int id { get; set; }

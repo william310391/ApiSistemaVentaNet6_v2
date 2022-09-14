@@ -23,9 +23,9 @@ namespace SistemaVenta.Negocio.Services
         {
             _unitOfWork = unitOfWork; 
         }  
-        public IEnumerable<Producto> GetProductos()
+        public async Task<IEnumerable<Producto>> GetProductos()
         {
-           return _unitOfWork.ProductoRepository.GetAll();           
+           return await _unitOfWork.ProductoRepository.GetAll();           
         }
         public async Task<ApiResponse<IEnumerable<ProductoDTO>>> GetProductosByFilters(ProductoQueryFilter filters)
         {           

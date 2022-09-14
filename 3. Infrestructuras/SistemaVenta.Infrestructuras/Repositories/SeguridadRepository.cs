@@ -14,7 +14,11 @@ namespace SistemaVenta.Infrestructuras.Repositories
 {
     public class SeguridadRepository : BaseRepository<Seguridad>, ISeguridadRepository
     {
-        public SeguridadRepository(VentasContext context) : base(context) { }
+        private readonly IDapperRespository _dapper;
+        public SeguridadRepository(VentasContext context, IDapperRespository dapper) : base(context, dapper)
+        {
+            _dapper = dapper;
+        }
 
         public async Task<Seguridad> GetLoginByCredentials(SeguridadDTO seguridadDTO)
         {

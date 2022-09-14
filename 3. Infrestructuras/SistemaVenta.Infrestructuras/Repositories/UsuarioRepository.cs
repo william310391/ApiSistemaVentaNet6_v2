@@ -4,6 +4,7 @@ using SistemaVenta.Core.Entities;
 using SistemaVenta.Infraestructura.Data;
 using SistemaVenta.Infraestructura.Interfaces;
 using SistemaVenta.Infraestructura.Repositories;
+using SistemaVenta.Infrestructuras.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,11 @@ namespace SistemaVenta.Infrestructuras.Repositories
 {
     public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
     {
-        public UsuarioRepository(VentasContext context) : base(context) { } 
+        private readonly IDapperRespository _dapper;
+        public UsuarioRepository(VentasContext context, IDapperRespository dapper) : base(context, dapper)
+        {
+            _dapper = dapper;
+        }           
 
         public async Task<Usuario> GetLoginByCredentials(UsuarioDTO usuarioDTO)
         {

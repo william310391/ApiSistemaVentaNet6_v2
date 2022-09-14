@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaVenta.Core.Entities
 {
     public class BaseEntity
     {
+        [Key]
         public int Id { get; set; }
         public bool IndActivo { get; set; }
         public int IdUsuarioRegistro { get; set; }
