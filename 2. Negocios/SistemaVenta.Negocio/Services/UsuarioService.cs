@@ -50,7 +50,6 @@ namespace SistemaVenta.Negocio.Services
             usuarioDTO.Contrasena = _unitOfWork.PasswordService.Hash(usuarioDTO.Contrasena);
             var ent = _unitOfWork.Mapper.Map<Usuario>(usuarioDTO);
             await _unitOfWork.UsuarioRepository.Add(ent);
-            await _unitOfWork.SaveChangesAsync();
             usuarioDTO = _unitOfWork.Mapper.Map<UsuarioDTO>(ent);
             var response = new ApiResponse<UsuarioDTO>(usuarioDTO);
             return response;

@@ -53,8 +53,7 @@ namespace SistemaVenta.Negocio.Services
             seguridadDTO.Contrasena = _unitOfWork.PasswordService.Hash(seguridadDTO.Contrasena);
             var seguridad = _unitOfWork.Mapper.Map<Seguridad>(seguridadDTO);
             await _unitOfWork.SeguridadRepository.Add(seguridad);
-            await _unitOfWork.SaveChangesAsync();
-            seguridadDTO= _unitOfWork.Mapper.Map<SeguridadDTO>(seguridad);
+            seguridadDTO = _unitOfWork.Mapper.Map<SeguridadDTO>(seguridad);
             var response = new ApiResponse<SeguridadDTO>(seguridadDTO);
             return response;
         }

@@ -2,6 +2,8 @@
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 using SistemaVenta.Infrestructuras.Interfaces;
+using Dapper.FluentMap;
+using SistemaVenta.Infrestructuras.Data.Configuration;
 
 namespace SistemaVenta.Infrestructuras.Repositories
 {
@@ -16,12 +18,17 @@ namespace SistemaVenta.Infrestructuras.Repositories
 
 
         public DapperRespository(IConfiguration configuration)
-        {
+        {    
             _configuration = configuration;
             _cnSQL = _configuration.GetConnectionString("CNSQL");
             _cnMySQL = _configuration.GetConnectionString("CNMYSQL");
             _sqlConection = new SqlConnection(_cnSQL);
             _mySqlConnection = new MySqlConnection(_cnMySQL);
+
+
+
+
+
         }
 
         public string cnSQL { get => _cnSQL; set => _cnSQL = value; }

@@ -84,7 +84,6 @@ namespace SistemaVenta.Negocio.Services
       
             }
             await _unitOfWork.ProductoRepository.Add(producto);
-            await _unitOfWork.SaveChangesAsync();
             productoDTO = _unitOfWork.Mapper.Map<ProductoDTO>(producto);
             var response = new ApiResponse<ProductoDTO>(productoDTO);
             return response;
@@ -101,7 +100,6 @@ namespace SistemaVenta.Negocio.Services
             producto.Descripcion = productoDTO.Descripcion;
             producto.Imagen = productoDTO.Imagen;
             _unitOfWork.ProductoRepository.Update(producto);
-            await _unitOfWork.SaveChangesAsync();
             var response = new ApiResponse<bool>(true);
             return response;
         }
@@ -109,7 +107,6 @@ namespace SistemaVenta.Negocio.Services
         public async Task<ApiResponse<bool>> DeleteProducto(int id)
         {
             await _unitOfWork.ProductoRepository.Delete(id);
-            await _unitOfWork.SaveChangesAsync();
             var response = new ApiResponse<bool>(true);
             return response;
         }

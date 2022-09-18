@@ -23,12 +23,12 @@ namespace SistemaVenta.Negocio.Services
         public ISeguridadService SeguridadService => _seguridadService ?? new SeguridadService(_unitOfWork);
         public IClienteDapperService ClienteDapperService => _clienteDapperService ?? new ClienteDapperService(_unitOfWork);
 
-        public void Dispose()
-        {
-            if (_unitOfWork != null)
-            {
-                _unitOfWork.Dispose();
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (_unitOfWork != null)
+        //    {
+        //        _unitOfWork.Dispose();
+        //    }
+        //}
     }
 }

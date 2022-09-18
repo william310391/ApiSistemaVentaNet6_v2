@@ -1,8 +1,10 @@
 using AutoMapper;
+using Dapper.FluentMap;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using SistemaVenta.Infraestructura.Filters;
+using SistemaVenta.Infrestructuras.Data.Configuration;
 using SistemaVenta.Negocio.Extensions;
 using System.Reflection;
 
@@ -28,11 +30,9 @@ builder.Services.AddControllers(option =>
     option.SuppressModelStateInvalidFilter = true;
 });
 builder.Services.AddOptions(Configuration);
-builder.Services.AddDbContexts(Configuration);
 builder.Services.AddServices();
-//services.AddTransient<IUnitOfWorkService, UnitOfWorkService>();
-//builder.Services.AddSwagger(Configuration, Assembly.GetExecutingAssembly().GetName().Name);
 builder.Services.AddJWTAuthentication(Configuration);
+builder.Services.AddRegisterMapDapper(Configuration);
 builder.Services.AddMvc(option =>
 {
     option.Filters.Add<ValidationFilter>();

@@ -30,7 +30,7 @@ namespace SistemaVenta.Api.Controllers
         /// </summary>
         /// <param name="filter">datos para los filtros y paginacion</param>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet(Name = nameof(GetProductos))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<ProductoDTO>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

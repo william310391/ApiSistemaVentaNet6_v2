@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistemaVenta.Infraestructura.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         IProductoRepository ProductoRepository { get; }       
         //IBaseRepository<Usuario> UsuarioRepository { get; }
@@ -20,10 +20,8 @@ namespace SistemaVenta.Infraestructura.Interfaces
         IMapper Mapper { get; }
         ITokenService TokenService { get; }
         PaginationOptions PaginationOptions { get; }
-        public IUrlService UrlService { get; }
-        public IPasswordService PasswordService { get; }
-        void SaveChanges();
-        Task SaveChangesAsync();
+        IUrlService UrlService { get; }
+        IPasswordService PasswordService { get; }
 
         IDapperRespository dapperRespository { get; }
         IClienteDapperRepository ClienteDapperRepository { get; }
