@@ -8,7 +8,7 @@ namespace SistemaVenta.Infraestructura.Interfaces
 {
     public interface IBaseRepository<T> where T: BaseEntity
     {
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int Id);
         Task Add(T entity);
         void Update(T entity);

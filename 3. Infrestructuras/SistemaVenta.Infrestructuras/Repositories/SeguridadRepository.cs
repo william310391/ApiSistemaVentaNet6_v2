@@ -1,27 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
 using SistemaVenta.Core.DTOs;
 using SistemaVenta.Core.Entities;
-using SistemaVenta.Infraestructura.Data;
 using SistemaVenta.Infraestructura.Repositories;
 using SistemaVenta.Infrestructuras.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace SistemaVenta.Infrestructuras.Repositories
 {
     public class SeguridadRepository : BaseRepository<Seguridad>, ISeguridadRepository
     {
-        public SeguridadRepository(VentasContext context) : base(context) { }
+        private readonly IDapperRespository _dapper;
+        public SeguridadRepository(IDapperRespository dapper) : base(dapper)
+        {
+            _dapper = dapper;
+        }
 
         public async Task<Seguridad> GetLoginByCredentials(SeguridadDTO seguridadDTO)
         {
-            return await _entities.AsQueryable()
-                .Where(x => x.Usuario == seguridadDTO.Usuario.Trim())
-               // .Where(x => x.Contrasena == seguridadDTO.Contrasena)
-                .FirstOrDefaultAsync();
+
+            var parms = new
+            {
+                @Usuario = seguridadDTO.Usuario.Trim(),
+            };
+            var sql = "sp_GetLoginByCredentialsSeguridad";
+            return (Seguridad)await _dapper.sqlConection.QueryAsync<Seguridad>(sql, parms, null, null, CommandType.StoredProcedure);
         }
     }
 }

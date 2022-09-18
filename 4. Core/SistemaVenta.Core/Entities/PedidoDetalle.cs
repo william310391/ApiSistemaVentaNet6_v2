@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaVenta.Core.Entities
-{ 
+{
+    [Table("PedidoDetalle")]
     public partial class PedidoDetalle: BaseEntity
     {
         public int? IdPedido { get; set; }

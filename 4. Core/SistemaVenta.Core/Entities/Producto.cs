@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaVenta.Core.Entities
 {
+    [Table("Producto")]
     public partial class Producto: BaseEntity
     {
+  
         public Producto()
         {
             PedidoDetalle = new HashSet<PedidoDetalle>();

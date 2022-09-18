@@ -1,15 +1,16 @@
 ﻿using AplicacionPersonal.Infraestructura.Interfaces;
 using AplicacionPersonal.Infraestructura.Services;
+using Dapper.FluentMap;
+using Dapper.FluentMap.Dommel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SistemaVenta.Core.CustionEntities;
-using SistemaVenta.Infraestructura.Data;
 using SistemaVenta.Infraestructura.Interfaces;
 using SistemaVenta.Infraestructura.Repositories;
+using SistemaVenta.Infrestructuras.Data.Configuration;
 using SistemaVenta.Infrestructuras.Options;
 using SistemaVenta.Negocio.Interfaces;
 using SistemaVenta.Negocio.Services;
@@ -20,14 +21,6 @@ namespace SistemaVenta.Negocio.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddDbContexts(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<VentasContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("CNSQL"));
-            });
-        }
-
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<PaginationOptions>(configuration.GetSection("Pagination"));
@@ -36,12 +29,10 @@ namespace SistemaVenta.Negocio.Extensions
             //services.Configure<PasswordOptions>(options => configuration.GetSection("PasswordOptions").Bind(options));
             //return services;
         }
-
-
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork,UnitOfWork>();
             services.AddTransient<IUnitOfWorkService, UnitOfWorkService>();
             services.AddSingleton<IUrlService>(provider =>
             {
@@ -73,41 +64,14 @@ namespace SistemaVenta.Negocio.Extensions
             });
         }
 
-        //public static void AddSwagger(this IServiceCollection services, IConfiguration configuration, string xmlFileName)
-        //{
-        //    services.AddSwaggerGen(doc =>
-        //    {
-        //        doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Sistema Venta", Version = "v1" });
-        //        var xmlFile = $"{xmlFileName}.xml";
-        //        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        //        doc.IncludeXmlComments(xmlPath);
+        public static void AddRegisterMapDapper(this IServiceCollection services, IConfiguration configuration)
+        {
+           FluentMapper.Initialize(config =>
+            {
+                config.AddMap(new ProductoMap());
+                config.ForDommel();
+            });
 
-        //        doc.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        //        {
-        //            Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
-        //            Name = "Authorization",
-        //            In = ParameterLocation.Header,
-        //            Type = SecuritySchemeType.ApiKey,
-        //            Scheme = "Bearer"
-        //        });
-
-        //        doc.AddSecurityRequirement(new OpenApiSecurityRequirement
-        //        {
-        //            {
-        //                new OpenApiSecurityScheme
-        //                {
-        //                    Reference = new OpenApiReference
-        //                    {
-        //                        Type = ReferenceType.SecurityScheme,
-        //                        Id = "Bearer"
-        //                    }
-        //                },
-        //                Array.Empty<string>()
-        //            }
-        //        });
-
-        //    });
-        //}
-
+        }
     }
 }
