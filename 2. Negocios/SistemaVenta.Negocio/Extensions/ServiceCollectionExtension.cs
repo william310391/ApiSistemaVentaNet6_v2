@@ -68,7 +68,12 @@ namespace SistemaVenta.Negocio.Extensions
         {
            FluentMapper.Initialize(config =>
             {
+                config.AddMap(new ClienteMap());
+                config.AddMap(new PedidoDetalleMap());
+                config.AddMap(new PedidoMap());
                 config.AddMap(new ProductoMap());
+                config.AddMap(new SeguridadMap());
+                config.AddMap(new UsuarioMap());
                 config.ForDommel();
             });
 
